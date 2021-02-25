@@ -22,7 +22,7 @@ public class ThreadCurrentTime extends Thread {
 				
 				@Override
 				public void run() {
-					clock.setText(String.valueOf(aktsec - s.startsec));					
+					clock.setText(secToTime(aktsec - s.startsec));					
 				}
 			});
 			try {
@@ -31,6 +31,31 @@ public class ThreadCurrentTime extends Thread {
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	/**
+	 * Converts the given secs to String with HH:MM:SS
+	 * 
+	 * @param sec the sec to convert
+	 * @return String with HH:MM:SS-Format
+	 */
+	public String secToTime(long sec) {
+		String ret = "";
+		long s, m, h;
+		s = sec % 60;
+		m = (sec / 60) % 60;
+
+		h = (sec / 60) / 60;
+		if (s < 10 && m < 10) {
+			ret = h + ":0" + m + ":0" + s;
+		}else if(s < 10) {
+			ret = h + ":" + m + ":0" + s;
+		}else if(m < 10) {
+			ret = h + ":0" + m + ":" + s;
+		}else {
+			ret = h + ":" + m + ":" + s;
+		}
+		return ret;
 	}
 	
 }
